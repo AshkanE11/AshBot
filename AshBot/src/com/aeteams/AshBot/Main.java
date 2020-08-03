@@ -11,7 +11,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException ;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TelegramApiRequestException {
 
 
 
@@ -19,6 +19,9 @@ public class Main {
 
 
 	TelegramBotsApi Bot = new TelegramBotsApi() ;
+
+
+        Bot.registerBot(new AshBot()) ;
 
 
 
