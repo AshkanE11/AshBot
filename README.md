@@ -1,6 +1,6 @@
 
 
-![](Telegram.png)
+![](telegram.png)
 
 </br>
 
