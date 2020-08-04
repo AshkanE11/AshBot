@@ -1,12 +1,15 @@
 package com.aeteams.AshBot;
 
+
+
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot ;
 import org.telegram.telegrambots.api.methods.send.SendMessage ;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 
 public class AshBot extends TelegramLongPollingBot {
 
@@ -38,7 +41,15 @@ public class AshBot extends TelegramLongPollingBot {
 
         // BotOutput
 
-        SendMessage botText = new SendMessage().setChatId(chatId).setText("userText") ;
+        SendMessage botWel = new SendMessage().setChatId(chatId).setText("Sooo ... What We Are Going To Do ?!?") ;
+
+        // Commands Reply
+
+        SendMessage message = new SendMessage() ;
+
+
+
+
 
 
 
@@ -48,8 +59,8 @@ public class AshBot extends TelegramLongPollingBot {
 
         try {
 
-            execute(botText) ;
-            
+            execute(botWel) ;
+
         }
 
         catch (TelegramApiException apiException) {
