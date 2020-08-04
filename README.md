@@ -5,4 +5,10 @@
 </br>
 
 # AshBot
-Telegram Bot Which converts user message as an mail and mailing it to the target mail by SMTP Mailing ...
+
+</br>
+
+AshBot is a TelegramBot Which Uses Telegram API and Converts Users Input </br>
+as an Email and Mailing it to a Specified Target Mail by </br>
+Using Java Mailing Api Via external libraries </br>
+Throw SMTP Mailing Method By smtp.gmail.com Host Service ... </br>
