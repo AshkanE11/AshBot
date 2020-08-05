@@ -3,9 +3,14 @@ package com.aeteams.AshBot;
 
 
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot ;
 import org.telegram.telegrambots.api.methods.send.SendMessage ;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,10 +48,29 @@ public class AshBot extends TelegramLongPollingBot {
 
         SendMessage botWel = new SendMessage().setChatId(chatId).setText("Sooo ... What We Are Going To Do ?!?") ;
 
+
+
+
+
         // Commands Reply
 
-        SendMessage message = new SendMessage() ;
 
+        ReplyKeyboardMarkup keymark = new ReplyKeyboardMarkup() ;
+        List<KeyboardRow> rowlist = new ArrayList<>() ;
+        KeyboardRow keyrow1 = new KeyboardRow() ;
+        KeyboardRow keyrow2 = new KeyboardRow() ;
+        KeyboardRow keyrow3 = new KeyboardRow() ;
+        KeyboardRow keyrow4 = new KeyboardRow() ;
+        keyrow1.add("ONE") ;
+        keyrow2.add("TWO") ;
+        keyrow3.add("THREE") ;
+        keyrow4.add("FOUR") ;
+        rowlist.add(keyrow1) ;
+        rowlist.add(keyrow2) ;
+        rowlist.add(keyrow3) ;
+        rowlist.add(keyrow4) ;
+        keymark.setKeyboard(rowlist) ;
+        keymark.setResizeKeyboard(true) ;
 
 
 
