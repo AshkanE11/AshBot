@@ -26,7 +26,9 @@ public class AshBot extends TelegramLongPollingBot {
     String userText ;
     String userSubhead , userMessage ;
     long ChatId ;
-    SendMessage botText , botInstruct ;
+    SendMessage botText ;
+    SendMessage botMailInstruct1 , botMailInstruct2 , botMailInstruct3 ;
+    SendMessage botAboutInstruct ;
 
 
 
@@ -69,7 +71,7 @@ public class AshBot extends TelegramLongPollingBot {
 
                 // BotOutput
 
-                botText = new SendMessage().setChatId(ChatId).setText("Sooo ... What We Are Going To Do ?!? \n Tip: Use The KeyBoard Commands ...") ;
+                botText = new SendMessage().setChatId(ChatId).setText("Sooo ... \n What We Are Going To Do ?!?") ;
 
 
 
@@ -114,16 +116,43 @@ public class AshBot extends TelegramLongPollingBot {
 
                     // Get SubHeader
 
-                    botInstruct = new SendMessage().setChatId(chatId).setText("Give Me Your Mail SubHead !!!");
+                    botMailInstruct1 = new SendMessage().setChatId(chatId).setText("Give Me Your Mail SubHead !!!");
 
                     userSubhead = update.getMessage().getText().toString();
 
 
-                    // Get Users Text
+                    // Get Users Message
 
-                    botInstruct = new SendMessage().setChatId(chatId).setText("Listening ... \n Enter Your Message For Ashkan !!!");
+                    botMailInstruct2 = new SendMessage().setChatId(chatId).setText("Listening ... \n Enter Your Message For Ashkan !!!");
 
                     userMessage = update.getMessage().getText().toString();
+
+
+                    // Operation Done Successfully !!!
+
+
+                    botMailInstruct3 = new SendMessage().setChatId(chatId).setText("Thinking ...") ;
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+            else if (update.getMessage().getText().equals("/About")) {
+
+
+                botAboutInstruct = new SendMessage().setChatId(ChatId).setText("AshBot is an Open Source Telegram Bot Which Uses a Friendly User Interface Authorized in Java \n" +
+                        "That Catches User Input and Easily Convert It To an Email and Send It as an Mail To a Specified Mail Target Using SMTP Mailing by Java Mailing API \n" +
+                        "Developed With LOVE By Ashkan Ebtekari \n" +
+                        "GitHub: AshkanE11 ") ;
 
 
 
@@ -139,36 +168,38 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
+
+            // Commands Reply
+
+
+
+            ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup() ;
+            List<KeyboardRow> keyrow = new ArrayList<>() ;
+            KeyboardRow Mail = new KeyboardRow() ;
+            KeyboardRow Overview = new KeyboardRow() ;
+            KeyboardRow History = new KeyboardRow() ;
+            KeyboardRow About = new KeyboardRow() ;
+            Mail.add("/Mail") ;
+            Overview.add("/Overview") ;
+            History.add("/History") ;
+            About.add("/About") ;
+            keyrow.add(Mail) ;
+            keyrow.add(Overview) ;
+            keyrow.add(History) ;
+            keyrow.add(About) ;
+            keyboard.setKeyboard(keyrow) ;
+            keyboard.setResizeKeyboard(true) ;
+            keyboard.setOneTimeKeyboard(false) ;
+            keyboard.setSelective(true) ;
+
+
+
+
+
         }
 
 
 
-
-
-
-
-        // Commands Reply
-
-
-
-        ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup() ;
-        List<KeyboardRow> keyrow = new ArrayList<>() ;
-        KeyboardRow Mail = new KeyboardRow() ;
-        KeyboardRow Overview = new KeyboardRow() ;
-        KeyboardRow History = new KeyboardRow() ;
-        KeyboardRow About = new KeyboardRow() ;
-        Mail.add("/Mail") ;
-        Overview.add("/Overview") ;
-        History.add("/History") ;
-        About.add("/About") ;
-        keyrow.add(Mail) ;
-        keyrow.add(Overview) ;
-        keyrow.add(History) ;
-        keyrow.add(About) ;
-        keyboard.setKeyboard(keyrow) ;
-        keyboard.setResizeKeyboard(true) ;
-        keyboard.setOneTimeKeyboard(false) ;
-        keyboard.setSelective(true) ;
 
 
 
@@ -186,7 +217,10 @@ public class AshBot extends TelegramLongPollingBot {
         try {
 
             execute(botText) ;
-            execute(botInstruct) ;
+            execute(botMailInstruct1) ;
+            execute(botMailInstruct2) ;
+            execute(botMailInstruct3) ;
+            execute(botAboutInstruct) ;
 
         }
 
