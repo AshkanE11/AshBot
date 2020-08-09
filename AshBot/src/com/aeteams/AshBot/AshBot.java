@@ -23,7 +23,9 @@ public class AshBot extends TelegramLongPollingBot {
 
     // Global Variables
 
+    String userText ;
     String userSubhead , userMessage ;
+    long ChatId ;
     SendMessage botText , botInstruct ;
 
 
@@ -59,15 +61,15 @@ public class AshBot extends TelegramLongPollingBot {
 
                 // ChatId
 
-                long chatId = update.getMessage().getChatId() ;
+                ChatId = update.getMessage().getChatId() ;
 
                 // UserText
 
-                String userText = update.getMessage().getText() ;
+                userText = update.getMessage().getText() ;
 
                 // BotOutput
 
-                botText = new SendMessage().setChatId(chatId).setText("Sooo ... What We Are Going To Do ?!? \n Tip: Use The KeyBoard Commands ...") ;
+                botText = new SendMessage().setChatId(ChatId).setText("Sooo ... What We Are Going To Do ?!? \n Tip: Use The KeyBoard Commands ...") ;
 
 
 
@@ -81,7 +83,7 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
-            if (update.getMessage().getText().equals("/Mail")) {
+            else if (update.getMessage().getText().equals("/Mail")) {
 
 
 
@@ -101,30 +103,38 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
+
+
                 /* Bot Instructions &&& User Interfaces &&& Data Capturing */
 
 
 
 
 
-                // Get SubHeader
 
-                botInstruct = new SendMessage().setChatId(chatId).setText("Give Me Your Mail SubHead !!!") ;
+                    // Get SubHeader
 
-                userSubhead = update.getMessage().getText().toString() ;
+                    botInstruct = new SendMessage().setChatId(chatId).setText("Give Me Your Mail SubHead !!!");
+
+                    userSubhead = update.getMessage().getText().toString();
 
 
-                // Get Users Text
+                    // Get Users Text
 
-                botInstruct = new SendMessage().setChatId(chatId).setText("Listening ... \n Enter Your Message For Ashkan !!!") ;
+                    botInstruct = new SendMessage().setChatId(chatId).setText("Listening ... \n Enter Your Message For Ashkan !!!");
 
-                userMessage = update.getMessage().getText().toString() ;
+                    userMessage = update.getMessage().getText().toString();
+
 
 
 
 
             }
 
+
+
+
+            else { botText = new SendMessage().setChatId(ChatId).setText("Use The Command Keys ...") ; }
 
 
 
@@ -176,6 +186,7 @@ public class AshBot extends TelegramLongPollingBot {
         try {
 
             execute(botText) ;
+            execute(botInstruct) ;
 
         }
 
