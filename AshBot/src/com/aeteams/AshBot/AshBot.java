@@ -14,11 +14,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.util.*;
-import javax.jms.Message;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import java.util.* ;
+import javax.mail.* ;
+import javax.mail.internet.* ;
 
 
 
@@ -202,14 +200,6 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
-        }
-
-
-
-
-
-        class SMTPMailing {
-
 
 
 
@@ -219,7 +209,7 @@ public class AshBot extends TelegramLongPollingBot {
 
             String from = "ashkanebtekari@gmail.com" ; // Hosting Mail
             String to = "ranvividly@gmail.com" ;  // Target Mail !!!
-            String host = "192.168.1.86" ; // IP Adress || LocalHost
+            String host = "smtp.gmail.com" ; // IP Adress || LocalHost
 
 
 
@@ -228,22 +218,35 @@ public class AshBot extends TelegramLongPollingBot {
 
 
             Properties properties = System.getProperties();
-        properties.setProperty("smtp.gmail.com", host);
-            Session session = Session.getDefaultInstance(properties) ;
+            properties.put("mail.smtp.host" , host) ;
+            properties.put("mail.smtp.port" , "465") ;
+            properties.put("mail.smtp.ssl.enable" , "true") ;
+            properties.put("mail.smtp.auth" , "true") ;
+
+            Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+                protected PasswordAuthentication getPasswordAuthentication() {
+
+                    return new PasswordAuthentication("ranvividly@gmail.com", "ashkan13831383");
+
+
+                }
+
+            });
 
 
             // Finalizing The Mail ...
 
 
-        try{
+            try{
 
 
 
                 MimeMessage message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(from));
                 message.addRecipient(javax.mail.Message.RecipientType.TO , new InternetAddress(to));
-                message.setSubject("Ping");
-                message.setText("My Message Here !!!");
+                message.setSubject(userSubhead);
+                message.setText(userMessage);
 
 
 
@@ -258,10 +261,22 @@ public class AshBot extends TelegramLongPollingBot {
             }
 
 
-        catch (MessagingException mex) { mex.printStackTrace() ; }
+            catch (MessagingException mex) { mex.printStackTrace() ; }
+
+
+
+
+
+
+
 
 
         }
+
+
+
+
+
 
 
 
