@@ -14,6 +14,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.*;
+import javax.jms.Message;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
 
 
 public class AshBot extends TelegramLongPollingBot {
@@ -99,7 +105,7 @@ public class AshBot extends TelegramLongPollingBot {
 
                 // BotText
 
-                botText = new SendMessage().setChatId(chatId).setText("Ha Nice ! \n Started the Mailing Operation ...") ;
+                botText = new SendMessage().setChatId(chatId).setText("Nice ! \n Started the Mailing Operation ...") ;
 
 
 
@@ -197,6 +203,71 @@ public class AshBot extends TelegramLongPollingBot {
 
 
         }
+
+
+
+
+
+        class SMTPMailing {
+
+
+
+
+
+            // Credentials ...
+
+
+            String from = "ashkanebtekari@gmail.com" ; // Hosting Mail
+            String to = "ranvividly@gmail.com" ;  // Target Mail !!!
+            String host = "192.168.1.86" ; // IP Adress || LocalHost
+
+
+
+
+            //Get the session object
+
+
+            Properties properties = System.getProperties();
+        properties.setProperty("smtp.gmail.com", host);
+            Session session = Session.getDefaultInstance(properties) ;
+
+
+            // Finalizing The Mail ...
+
+
+        try{
+
+
+
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(from));
+                message.addRecipient(javax.mail.Message.RecipientType.TO , new InternetAddress(to));
+                message.setSubject("Ping");
+                message.setText("My Message Here !!!");
+
+
+
+                // Sending message
+
+
+                Transport.send(message);
+                System.out.println("Sending Operation Done Successfully ...");
+
+
+
+            }
+
+
+        catch (MessagingException mex) { mex.printStackTrace() ; }
+
+
+        }
+
+
+
+
+
+
 
 
 
