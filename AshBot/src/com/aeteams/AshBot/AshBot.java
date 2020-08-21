@@ -60,7 +60,7 @@ public class AshBot extends TelegramLongPollingBot {
     String mailIns2 = "Enter Your Mail SubHead : " ;
     String mailIns3 = "Listening ... \n Say Your Main Message : " ;
     String mailIns4 = "Mail Generated and Have Been \n Sent Successfully !" ;
-    String overviewIns = "-----Overview----- \n \n Total Mails Sent : %d \n " ;
+    String overviewIns = "-----Overview----- \n \n Total Mails Sent :  \n " ;
     String aboutIns = "AshBot is a Telegram Bot which gets \n user text and convert it as \n an Email and send it to \n a specified target mail ..." ;
     String err = "Use The Command Line ..." ;
 
@@ -151,7 +151,7 @@ public class AshBot extends TelegramLongPollingBot {
             // Overview Case ...
 
 
-            else if (userInput.equals(Overview)) { botText.setText(overviewIns); }
+            else if (userInput.equals(Overview)) { botText.setText(overviewIns + mailcounter); }
 
 
             // About Case ...
