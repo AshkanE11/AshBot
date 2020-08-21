@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.util.* ;
-import javax.mail.* ;
-import javax.mail.internet.* ;
+
 
 
 
@@ -25,28 +23,62 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
-    // Global Variables
 
-    String userText ;
-    String userSubhead , userMessage ;
-    long ChatId ;
+    // Commands ...
+
+
+
+    String Start = "/Start" ;
+    String Mail = "/Mail" ;
+    String History = "/History" ;
+    String Overview = "/Overview" ;
+    String About = "/About" ;
+
+
+
+    // Global Variables ...
+
+
+    String userInput;
     SendMessage botText ;
-    SendMessage botMailInstruct1 , botMailInstruct2 , botMailInstruct3 ;
-    SendMessage botAboutInstruct ;
+    String mailHead , mailBody ;
+    long ChatId ;
+
+    long mailcounter ;
+
+
+
+
+
+
+
+    // Bot Instructs ...
+
+
+    String startIns = "Sooo ... \n What We Are Going To Do !??" ;
+    String mailIns1 = "Mailing Operation Started ..." ;
+    String mailIns2 = "Enter Your Mail SubHead : " ;
+    String mailIns3 = "Listening ... \n Say Your Main Message : " ;
+    String mailIns4 = "Mail Generated and Have Been \n Sent Successfully !" ;
+    String overviewIns = "-----Overview----- \n \n Total Mails Sent : %d \n " ;
+    String aboutIns = "AshBot is a Telegram Bot which gets \n user text and convert it as \n an Email and send it to \n a specified target mail ..." ;
+    String err = "Use The Command Line ..." ;
+
 
 
 
 
     @Override
-    public String getBotToken() {
-        return "1188286735:AAGLOSg8Czz8hRz9llt144ZhsaSg7Zm7q6E";
-    }
+    public String getBotToken() { return "1188286735:AAGLOSg8Czz8hRz9llt144ZhsaSg7Zm7q6E"; }
 
 
     @Override
-    public String getBotUsername() {
-        return "AshkanEBot";
-    }
+    public String getBotUsername() { return "AshkanEBot"; }
+
+
+
+
+
 
 
     @Override
@@ -54,120 +86,91 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
-        if (update.hasMessage() && update.getMessage().hasText()) {
+
+        ChatId = update.getMessage().getChatId() ;
+
+        botText = new SendMessage().setChatId(ChatId) ;
+
+        userInput = update.getMessage().getText().toString() ;
 
 
-
-            if (update.getMessage().getText().equals("/start")) {
-
-
-
-
-
-
-                // ChatId
-
-                ChatId = update.getMessage().getChatId() ;
-
-                // UserText
-
-                userText = update.getMessage().getText() ;
-
-                // BotOutput
-
-                botText = new SendMessage().setChatId(ChatId).setText("Sooo ... \n What We Are Going To Do ?!?") ;
+        boolean hasMessage = update.hasMessage() ;
+        boolean hasText = update.getMessage().hasText() ;
 
 
 
 
+        if (hasMessage && hasText) {
 
 
+            // Start Case ...
+            if (userInput.equals(Start)) {
+
+
+                botText.setText(startIns);
 
 
 
             }
 
 
+            // Mailing Case
 
-            else if (update.getMessage().getText().equals("/Mail")) {
-
-
-
-                // ChatId
-
-                long chatId = update.getMessage().getChatId() ;
-
-                // UserText
-
-                String userText = update.getMessage().getText() ;
-
-                // BotText
-
-                botText = new SendMessage().setChatId(chatId).setText("Nice ! \n Started the Mailing Operation ...") ;
+            else if (userInput.equals(Mail)) {
 
 
 
+                botText.setText(mailIns1);
+
+                botText.setText(mailIns2);
+
+                mailHead = userInput;
+
+                botText.setText(mailIns3);
+
+                mailBody = userInput;
 
 
+                botText.setText(mailIns4);
 
 
-                /* Bot Instructions &&& User Interfaces &&& Data Capturing */
-
-
-
-
-
-
-                    // Get SubHeader
-
-                    botMailInstruct1 = new SendMessage().setChatId(chatId).setText("Give Me Your Mail SubHead !!!");
-
-                    userSubhead = update.getMessage().getText().toString();
-
-
-                    // Get Users Message
-
-                    botMailInstruct2 = new SendMessage().setChatId(chatId).setText("Listening ... \n Enter Your Message For Ashkan !!!");
-
-                    userMessage = update.getMessage().getText().toString();
-
-
-                    // Operation Done Successfully !!!
-
-
-                    botMailInstruct3 = new SendMessage().setChatId(chatId).setText("Thinking ...") ;
-
-
-
-
-
-
-
+                mailcounter++;
 
 
 
             }
 
 
+            // History Case ...
 
-            else if (update.getMessage().getText().equals("/About")) {
 
-
-                botAboutInstruct = new SendMessage().setChatId(ChatId).setText("AshBot is an Open Source Telegram Bot Which Uses a Friendly User Interface Authorized in Java \n" +
-                        "That Catches User Input and Easily Convert It To an Email and Send It as an Mail To a Specified Mail Target Using SMTP Mailing by Java Mailing API \n" +
-                        "Developed With LOVE By Ashkan Ebtekari \n" +
-                        "GitHub: AshkanE11 ") ;
+            else if (userInput.equals(History)) { }
 
 
 
+            // Overview Case ...
 
 
-            }
+            else if (userInput.equals(Overview)) { botText.setText(overviewIns); }
+
+
+            // About Case ...
+
+
+            else if (userInput.equals(About)) { botText.setText(aboutIns); }
+
+
+            // Else Case ...
+
+            else { botText.setText(err); }
 
 
 
 
-            else { botText = new SendMessage().setChatId(ChatId).setText("Use The Command Keys ...") ; }
+
+
+
+
 
 
 
@@ -176,116 +179,30 @@ public class AshBot extends TelegramLongPollingBot {
             // Commands Reply
 
 
-
-            ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup() ;
-            List<KeyboardRow> keyrow = new ArrayList<>() ;
-            KeyboardRow Mail = new KeyboardRow() ;
-            KeyboardRow Overview = new KeyboardRow() ;
-            KeyboardRow History = new KeyboardRow() ;
-            KeyboardRow About = new KeyboardRow() ;
-            Mail.add("/Mail") ;
-            Overview.add("/Overview") ;
-            History.add("/History") ;
-            About.add("/About") ;
-            keyrow.add(Mail) ;
-            keyrow.add(Overview) ;
-            keyrow.add(History) ;
-            keyrow.add(About) ;
-            keyboard.setKeyboard(keyrow) ;
-            keyboard.setResizeKeyboard(true) ;
-            keyboard.setOneTimeKeyboard(false) ;
-            keyboard.setSelective(true) ;
-
-
-
-
-
-
-
-
-
-            // Credentials ...
-
-
-            String from = "ashkanebtekari@gmail.com" ; // Hosting Mail
-            String to = "ranvividly@gmail.com" ;  // Target Mail !!!
-            String host = "smtp.gmail.com" ; // IP Adress || LocalHost
-
-
-
-
-            //Get the session object
-
-
-            Properties properties = System.getProperties();
-            properties.put("mail.smtp.host" , host) ;
-            properties.put("mail.smtp.port" , "465") ;
-            properties.put("mail.smtp.ssl.enable" , "true") ;
-            properties.put("mail.smtp.auth" , "true") ;
-
-            Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-
-                protected PasswordAuthentication getPasswordAuthentication() {
-
-                    return new PasswordAuthentication("ranvividly@gmail.com", "ashkan13831383");
-
-
-                }
-
-            });
-
-
-            // Finalizing The Mail ...
-
-
-            try{
-
-
-
-                MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(from));
-                message.addRecipient(javax.mail.Message.RecipientType.TO , new InternetAddress(to));
-                message.setSubject(userSubhead);
-                message.setText(userMessage);
-
-
-
-                // Sending message
-
-
-                Transport.send(message);
-                System.out.println("Sending Operation Done Successfully ...");
-
-
-
-            }
-
-
-            catch (MessagingException mex) { mex.printStackTrace() ; }
-
-
-
-
+            ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
+            List<KeyboardRow> keyrow = new ArrayList<>();
+            KeyboardRow Mail = new KeyboardRow();
+            KeyboardRow Overview = new KeyboardRow();
+            KeyboardRow History = new KeyboardRow();
+            KeyboardRow About = new KeyboardRow();
+            Mail.add("/Mail");
+            Overview.add("/Overview");
+            History.add("/History");
+            About.add("/About");
+            keyrow.add(Mail);
+            keyrow.add(Overview);
+            keyrow.add(History);
+            keyrow.add(About);
+            keyboard.setKeyboard(keyrow);
+            keyboard.setResizeKeyboard(true);
+            keyboard.setOneTimeKeyboard(false);
+            keyboard.setSelective(true);
 
 
 
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -303,10 +220,6 @@ public class AshBot extends TelegramLongPollingBot {
         try {
 
             execute(botText) ;
-            execute(botMailInstruct1) ;
-            execute(botMailInstruct2) ;
-            execute(botMailInstruct3) ;
-            execute(botAboutInstruct) ;
 
         }
 
@@ -322,7 +235,24 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
