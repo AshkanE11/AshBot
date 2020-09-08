@@ -79,6 +79,8 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
+    AshBot ashbot = new AshBot() ;
+
 
 
     @Override
@@ -104,11 +106,14 @@ public class AshBot extends TelegramLongPollingBot {
 
 
             // Start Case ...
+
             if (userInput.equals(Start)) {
 
 
-                botText.setText(startIns);
+                // Welcome Text
 
+                botText.setText(startIns);
+                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
 
 
             }
@@ -119,20 +124,38 @@ public class AshBot extends TelegramLongPollingBot {
             else if (userInput.equals(Mail)) {
 
 
+                // Bot Text ONE
 
                 botText.setText(mailIns1);
 
+                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+
+
+
+
+                // Bot Text TWO
+
                 botText.setText(mailIns2);
+
+                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+
+
+                // User Input ONE
 
                 mailHead = userInput;
 
                 botText.setText(mailIns3);
 
-                mailBody = userInput;
 
+                // User Input TWO
+
+                mailBody = userInput;
 
                 botText.setText(mailIns4);
 
+
+
+                // Counter ...
 
                 mailcounter++;
 
@@ -144,7 +167,11 @@ public class AshBot extends TelegramLongPollingBot {
             // History Case ...
 
 
-            else if (userInput.equals(History)) { }
+            else if (userInput.equals(History)) {
+
+                botText.setText("Nothing To Show !!!") ;
+
+            }
 
 
 
@@ -157,12 +184,22 @@ public class AshBot extends TelegramLongPollingBot {
             // About Case ...
 
 
-            else if (userInput.equals(About)) { botText.setText(aboutIns); }
+            else if (userInput.equals(About)) {
+
+                botText.setText(aboutIns);
+                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+
+            }
 
 
             // Else Case ...
 
-            else { botText.setText(err); }
+            else {
+
+                botText.setText(err);
+                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+
+            }
 
 
 
@@ -214,7 +251,7 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
-        // Finalizing Output of The Robot ...
+        // Finalizing Output of The Robot ...  /**** Delete Checkout ****\ **************************************************************************
 
 
         try {
