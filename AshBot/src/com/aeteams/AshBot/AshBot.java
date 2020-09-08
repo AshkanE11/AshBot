@@ -8,6 +8,7 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot ;
 import org.telegram.telegrambots.api.methods.send.SendMessage ;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +102,18 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
+
+
+
+
+
+
+
         if (hasMessage && hasText) {
+
+
+
+
 
 
             // Start Case ...
@@ -112,7 +124,12 @@ public class AshBot extends TelegramLongPollingBot {
                 // Welcome Text
 
                 botText.setText(startIns);
-                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+                
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
 
             }
@@ -127,31 +144,48 @@ public class AshBot extends TelegramLongPollingBot {
 
                 botText.setText(mailIns1);
 
-                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
-
-
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
 
                 // Bot Text TWO
 
                 botText.setText(mailIns2);
 
-                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
 
                 // User Input ONE
 
                 mailHead = userInput;
 
-                botText.setText(mailIns3);
+                if (!mailHead.isEmpty()) botText.setText(mailIns3) ;
+
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
 
                 // User Input TWO
 
                 mailBody = userInput;
 
-                botText.setText(mailIns4);
+                if (!mailBody.isEmpty()) botText.setText(mailIns4) ;
 
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
 
                 // Counter ...
@@ -170,6 +204,12 @@ public class AshBot extends TelegramLongPollingBot {
 
                 botText.setText("Nothing To Show !!!") ;
 
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
+
             }
 
 
@@ -177,7 +217,17 @@ public class AshBot extends TelegramLongPollingBot {
             // Overview Case ...
 
 
-            else if (userInput.equals(Overview)) { botText.setText(overviewIns + mailcounter); }
+            else if (userInput.equals(Overview)) {
+
+                botText.setText(overviewIns + mailcounter);
+
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
+
+            }
 
 
             // About Case ...
@@ -186,7 +236,12 @@ public class AshBot extends TelegramLongPollingBot {
             else if (userInput.equals(About)) {
 
                 botText.setText(aboutIns);
-                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
             }
 
@@ -196,14 +251,14 @@ public class AshBot extends TelegramLongPollingBot {
             else {
 
                 botText.setText(err);
-                try { execute(botText) ; } catch (TelegramApiException apiException) { apiException.printStackTrace(); }
+
+                try {
+                    execute(botText) ;
+                } catch (TelegramApiException apiException) {
+                    apiException.printStackTrace();
+                }
 
             }
-
-
-
-
-
 
 
 
@@ -233,6 +288,13 @@ public class AshBot extends TelegramLongPollingBot {
             keyboard.setResizeKeyboard(true);
             keyboard.setOneTimeKeyboard(false);
             keyboard.setSelective(true);
+
+
+
+
+
+
+
 
 
 
@@ -279,15 +341,6 @@ public class AshBot extends TelegramLongPollingBot {
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
 
