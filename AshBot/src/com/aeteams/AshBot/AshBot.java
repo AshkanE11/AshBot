@@ -69,7 +69,7 @@ public class AshBot extends TelegramLongPollingBot {
 
 
     @Override
-    public String getBotToken() { return "1188286735:AAGLOSg8Czz8hRz9llt144ZhsaSg7Zm7q6E"; }
+    public String getBotToken() { return "1188286735:AAE9hHIr_VmAQxMdQ-0s5oFfXd30JNG5qOM"; }
 
 
     @Override
@@ -79,7 +79,6 @@ public class AshBot extends TelegramLongPollingBot {
 
 
 
-    AshBot ashbot = new AshBot() ;
 
 
 
